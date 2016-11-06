@@ -1,4 +1,6 @@
-// C++ program to generate long DFS traversal from a given vertex in a  given graph
+/* author: @gwzz
+ *
+ */
 #include <iostream>
 #include <list>
 #include <fstream>
