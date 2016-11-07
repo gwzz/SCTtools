@@ -2,12 +2,12 @@
  *
  */
 #include <iostream>
-#include <list>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
 #include <map>
+#include "graph.h"
 
 using namespace std;
 
@@ -18,61 +18,17 @@ const long long CUI[19] = {123037004, 404684003, 308916002, 272379006, 363787002
 const string ConName[19] = {"Body_structure", "Clinical_finding", "Environment_or_geographical_location", "Event", "Observable_entity", "Organism", "Pharmaceutical_biologic_product", "Physical_force", "Physical_object", "Procedure", "Qualifier_value", "Record_artifact", "Situation_with_explicit_context", "SNOMED_CT_Model_Component", "Social_context", "Special_Concept", "Specimen", "Staging_and_scales", "Substance"};
 
 // define global variables
-// nodeMap: store all the concepts [key,value]
-// reversedNodeMap: store reversed nodeMap [value,key]
-// nodeFile, relationFile, outputFile, as variable name
+// node_map: store all the concepts [key,value]
+// reversed_node_map: store reversed node_map [value,key]
+// nodeFile, relationFile, out_put_file, as variable name
 
-std::map<long long, int> nodeMap;
-std::map<int, long long> reversedNodeMap;
+std::map<long long, int> node_map;
+std::map<int, long long> reversed_node_map;
 string nodeFile = "2016nodes.txt";
 string relationFile = "2016relation.txt";
 string outPutFolder = "/Users/zhuwei/Desktop/sct_nodes_within_hierarchy/";
-std::vector<long long> outPutVec;
-// Graph class represents a directed graph using adjacency list representation
-class Graph
-{
-    long long V;    
-    list<long long> *adj;   
-    void DFSUtil(long long v, bool visited[]); 
-public:
-    Graph(long long V);   
-    void addEdge(long long v, long long w);  
-    void DFS(long long v);   
-};
+std::vector<long long> output_vector;
 
-Graph::Graph(long long V)
-{
-    this->V = V;
-    adj = new list<long long>[V];
-}
- 
-void Graph::addEdge(long long v, long long w)
-{
-    adj[v].push_back(w); 
-}
- 
-void Graph::DFSUtil(long long v, bool visited[])
-{
-    visited[v] = true;
-    // output to terminal
-    // cout << reversedNodeMap[v] << " ";
-    
-    // output to file
-    outPutVec.push_back(reversedNodeMap[v]);
-    list<long long>::iterator i;
-    for (i = adj[v].begin(); i != adj[v].end(); ++i)
-        if (!visited[*i])
-            DFSUtil(*i, visited);
-}
- 
-void Graph::DFS(long long v)
-{
-    bool *visited = new bool[V];
-    for (long long i = 0; i < V; i++)
-        visited[i] = false;
- 
-    DFSUtil(v, visited);
-}
 
 // string split function: split(s,d)
 // input: s: string, d: delimiter
@@ -84,7 +40,6 @@ void split(const string &s, char delim, vector<string> &elems) {
         elems.push_back(item);
     }
 }
-
 
 vector<long long> split(const string &s, char delim) {
     vector<string> elems;
@@ -99,8 +54,7 @@ vector<long long> split(const string &s, char delim) {
 int main()
 {
     
-    long long topNode;
-    // cin >> outputFile >> topNode;
+    long long top_node;
     string sline;
     vector<string> relation;
     std::vector<string> nodes;
@@ -112,42 +66,40 @@ int main()
     }
     fin.close();
     for (int i = 0; i < nodes.size(); ++i){
-        nodeMap[std::stoll(nodes[i])] = i;
+        node_map[std::stoll(nodes[i])] = i;
     }
 
-    for (map<long long, int>::iterator i = nodeMap.begin(); i != nodeMap.end(); ++i)
-        reversedNodeMap[i->second] = i->first;
+    for (map<long long, int>::iterator i = node_map.begin(); i != node_map.end(); ++i)
+        reversed_node_map[i->second] = i->first;
 
-    int nodeSize = nodeMap.size();
+    int nodeSize = node_map.size();
     fin.open(relationFile,ios::in);
     while (getline(fin, sline)){
         relation.push_back(sline);
     }
     fin.close();
+    // initialize graph g
     Graph g(nodeSize);
-    std::vector<long long> vres;
+    std::vector<long long> is_a_relationship;
     for (auto i : relation){
-        vres.clear();
-        vres = split(i, ',');
-        g.addEdge(nodeMap[vres[1]],nodeMap[vres[0]]);
+        is_a_relationship.clear();
+        is_a_relationship = split(i, ',');
+        g.addEdge(node_map[is_a_relationship[1]],node_map[is_a_relationship[0]]);
     }
-    // g.addEdge(1, 2);
-    // g.DFS(nodeMap[vres[0]]);
-    // g.DFS(nodeMap[105590001]);
-    string outPutFile;
+
+    string out_put_file;
     for (int i = 0; i < 19; ++i){
-        outPutVec.clear();
-        outPutFile.clear();
-        outPutFile = outPutFolder + ConName[i];
-        topNode = CUI[i];
-        g.DFS(nodeMap[topNode]);
+        output_vector.clear();
+        out_put_file.clear();
+        out_put_file = outPutFolder + ConName[i];
+        top_node = CUI[i];
+        output_vector = g.DFS(node_map[top_node]);
         fstream fout;
-        fout.open(outPutFile,ios::app);
-        for (auto o : outPutVec){
-            fout << o << endl;
+        fout.open(out_put_file,ios::app);
+        for (auto o : output_vector){
+            fout << reversed_node_map[o] << endl;
         }
         fout.close();
-        // cout << outPutVec.size() << endl;
     }
  
       return 0;
