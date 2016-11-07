@@ -1,5 +1,5 @@
-#ifndef GRAPH_H
-#define GRAPH_H
+#ifndef SCTTOOLS_GRAPH_H_
+#define SCTTOOLS_GRAPH_H_
 
 #include <list>
 #include <vector>
@@ -12,7 +12,7 @@ class Graph
 public:
     Graph(long long V);   
     void addEdge(long long v, long long w);  
-    std::vector<long long> DFS(long long v);   
+    std::vector<long long> DFS(long long v); 
 };
 
-#endif
+#endif // SCTTOOLS_GRAPH_H_

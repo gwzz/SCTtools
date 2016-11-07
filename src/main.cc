@@ -1,5 +1,5 @@
 /* author: @gwzz
- *
+ * 
  */
 #include <iostream>
 #include <fstream>
@@ -21,14 +21,8 @@ const string ConName[19] = {"Body_structure", "Clinical_finding", "Environment_o
 // node_map: store all the concepts [key,value]
 // reversed_node_map: store reversed node_map [value,key]
 // nodeFile, relationFile, out_put_file, as variable name
-
-std::map<long long, int> node_map;
-std::map<int, long long> reversed_node_map;
 string nodeFile = "2016nodes.txt";
 string relationFile = "2016relation.txt";
-string outPutFolder = "/Users/zhuwei/Desktop/sct_nodes_within_hierarchy/";
-std::vector<long long> output_vector;
-
 
 // string split function: split(s,d)
 // input: s: string, d: delimiter
@@ -42,65 +36,75 @@ void split(const string &s, char delim, vector<string> &elems) {
 }
 
 vector<long long> split(const string &s, char delim) {
-    vector<string> elems;
-    vector<long long> res;
-    split(s, delim, elems);
-    for(auto i : elems){
-        res.push_back(std::stoll(i));
-    }
-    return res;
+  vector<string> elems;
+  vector<long long> res;
+  split(s, delim, elems);
+  for(auto i : elems){
+    res.push_back(std::stoll(i));
+  }
+  return res;
 }
  
-int main()
-{
-    
-    long long top_node;
-    string sline;
-    vector<string> relation;
-    std::vector<string> nodes;
+int main(int argc, char* argv[])
+{   
+  if (argc < 2)
+  {
+    std::cerr << "Usage: " << argv[0] << " SNOMED_CT_FILE_PATH" << std::endl;
+    return 1;
+  }
+  string out_put_folder = "/Users/zhuwei/Desktop/sct_nodes_within_hierarchy/";
+  std::cout<< argc << "  " << argv[1] << endl;
+  long long top_node;
+  std::map<long long, int> node_map;
+  std::map<int, long long> reversed_node_map;
+  std::vector<long long> output_vector;
+  string sline;
+  vector<string> relation;
+  std::vector<string> nodes;
 
-    fstream fin;
-    fin.open(nodeFile,ios::in);
-    while (getline(fin, sline)){
-        nodes.push_back(sline);
-    }
-    fin.close();
-    for (int i = 0; i < nodes.size(); ++i){
-        node_map[std::stoll(nodes[i])] = i;
-    }
+    // Read in node file
+  fstream fin;
+  fin.open(nodeFile,ios::in);
+  while (getline(fin, sline)){
+    nodes.push_back(sline);
+  }
+  fin.close();
+  for (int i = 0; i < nodes.size(); ++i){
+    node_map[std::stoll(nodes[i])] = i;
+  }
 
-    for (map<long long, int>::iterator i = node_map.begin(); i != node_map.end(); ++i)
-        reversed_node_map[i->second] = i->first;
+  for (map<long long, int>::iterator i = node_map.begin(); i != node_map.end(); ++i)
+    reversed_node_map[i->second] = i->first;
 
-    int nodeSize = node_map.size();
-    fin.open(relationFile,ios::in);
-    while (getline(fin, sline)){
-        relation.push_back(sline);
-    }
-    fin.close();
-    // initialize graph g
-    Graph g(nodeSize);
-    std::vector<long long> is_a_relationship;
-    for (auto i : relation){
-        is_a_relationship.clear();
-        is_a_relationship = split(i, ',');
-        g.addEdge(node_map[is_a_relationship[1]],node_map[is_a_relationship[0]]);
-    }
+  int nodeSize = node_map.size();
+  fin.open(relationFile,ios::in);
+  while (getline(fin, sline)){
+    relation.push_back(sline);
+  }
+  fin.close();
+  // initialize graph g
+  Graph g(nodeSize);
+  std::vector<long long> is_a_relationship;
+  for (auto i : relation){
+    is_a_relationship.clear();
+    is_a_relationship = split(i, ',');
+    g.addEdge(node_map[is_a_relationship[1]],node_map[is_a_relationship[0]]);
+  }
 
-    string out_put_file;
-    for (int i = 0; i < 19; ++i){
-        output_vector.clear();
-        out_put_file.clear();
-        out_put_file = outPutFolder + ConName[i];
-        top_node = CUI[i];
-        output_vector = g.DFS(node_map[top_node]);
-        fstream fout;
-        fout.open(out_put_file,ios::app);
-        for (auto o : output_vector){
-            fout << reversed_node_map[o] << endl;
-        }
-        fout.close();
+  string out_put_file;
+  for (int i = 0; i < 19; ++i){
+    output_vector.clear();
+    out_put_file.clear();
+    out_put_file = out_put_folder + ConName[i];
+    top_node = CUI[i];
+    output_vector = g.DFS(node_map[top_node]);
+    fstream fout;
+    fout.open(out_put_file,ios::app);
+    for (auto o : output_vector){
+        fout << reversed_node_map[o] << endl;
     }
+    fout.close();
+  }
  
-      return 0;
+    return 0;
 }
