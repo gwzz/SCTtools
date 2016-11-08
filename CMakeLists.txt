@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS ${RELEASE_FLAGS})
 set(CMAKE_CXX_FLAGS_DEBUG ${DEBUG_FLAGS})
 set(CMAKE_CONFIGURATION_TYPES Debug Release)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
-set(SOURCES src/main src/Graph.cc)
+set(SOURCES src/main src/graph src/support)
 
 enable_testing()
 

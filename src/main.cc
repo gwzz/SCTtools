@@ -8,6 +8,7 @@
 #include <vector>
 #include <map>
 #include "graph.h"
+#include "support.h"
 
 using namespace std;
 
@@ -24,26 +25,7 @@ const string ConName[19] = {"Body_structure", "Clinical_finding", "Environment_o
 string nodeFile = "2016nodes.txt";
 string relationFile = "2016relation.txt";
 
-// string split function: split(s,d)
-// input: s: string, d: delimiter
-// output: a vector of splitted strings
-void split(const string &s, char delim, vector<string> &elems) {
-    stringstream ss(s);
-    string item;
-    while (getline(ss, item, delim)) {
-        elems.push_back(item);
-    }
-}
 
-vector<long long> split(const string &s, char delim) {
-  vector<string> elems;
-  vector<long long> res;
-  split(s, delim, elems);
-  for(auto i : elems){
-    res.push_back(std::stoll(i));
-  }
-  return res;
-}
  
 int main(int argc, char* argv[])
 {   
@@ -87,7 +69,7 @@ int main(int argc, char* argv[])
   std::vector<long long> is_a_relationship;
   for (auto i : relation){
     is_a_relationship.clear();
-    is_a_relationship = split(i, ',');
+    is_a_relationship = Split(i, ',');
     g.addEdge(node_map[is_a_relationship[1]],node_map[is_a_relationship[0]]);
   }
 
