@@ -9,6 +9,7 @@
 #include <map>
 #include "graph.h"
 #include "support.h"
+#include "sctfile.h"
 
 using namespace std;
 
@@ -36,13 +37,16 @@ int main(int argc, char* argv[])
   }
   string out_put_folder = "/Users/zhuwei/Desktop/sct_nodes_within_hierarchy/";
   std::cout<< argc << "  " << argv[1] << endl;
+  SctFile sf(argv[1]);
+  sf.GetNodes();
+  cout << "test" << endl;
   long long top_node;
   std::map<long long, int> node_map;
   std::map<int, long long> reversed_node_map;
   std::vector<long long> output_vector;
-  string sline;
-  vector<string> relation;
-  std::vector<string> nodes;
+  std::string sline;
+  std::vector<std::string> relation;
+  std::vector<std::string> nodes;
 
     // Read in node file
   fstream fin;

@@ -3,12 +3,12 @@
 
 #include <vector>
 #include <string>
-
+#include <map>
 class SctFile
 {
-    std::vector<string> file_chunk; 
+    std::vector<std::string> file_chunk; 
 public:
-    SctFile(long long V);   
-
+    SctFile(std::string filename);
+    std::vector<std::string> GetNodes();
 };
 #endif // SCTTOOLS_SCTFILE_H_
