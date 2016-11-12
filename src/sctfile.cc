@@ -5,7 +5,7 @@
 #include <vector>
 #include <fstream>
 #include <map>
-
+#include <set>
 SctFile::SctFile(std::string filename) {
   std::string line;
   std::ifstream myfile (filename);
@@ -17,6 +17,7 @@ SctFile::SctFile(std::string filename) {
       this->file_chunk.push_back(line);
     }
     myfile.close();
+    std::set<std::string> temp_nodes;
     // extract out relations from chunk
     for (std::vector<std::string>::iterator it = file_chunk.begin(); it != file_chunk.end(); ++it) {
 			std::vector<std::string> temp_token_vec;
@@ -26,11 +27,14 @@ SctFile::SctFile(std::string filename) {
 		    temp_token_vec.push_back(token);
 			}
 			if (temp_token_vec[2] == "1" && temp_token_vec[7] == "116680003") {
+				temp_nodes.insert(temp_token_vec[4]);
+				temp_nodes.insert(temp_token_vec[5]);
 				this->relations.push_back(temp_token_vec[4] + "," + temp_token_vec[5]);
 			}	
 		}
 		// extract nodes from relations
-		std::cout << this->relations.size() << std::endl;
+		std::cout << temp_nodes.size() << std::endl;
+		
   } else { 
      std::cout << "Unable to open file"; 
   }
