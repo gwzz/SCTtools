@@ -33,7 +33,8 @@ SctFile::SctFile(std::string filename) {
 			}	
 		}
 		// extract nodes from relations
-		std::cout << temp_nodes.size() << std::endl;
+		this->nodes.assign(temp_nodes.begin(),temp_nodes.end());
+		std::cout << this->nodes.size() << std::endl;
 		
   } else { 
      std::cout << "Unable to open file"; 
