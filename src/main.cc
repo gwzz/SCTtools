@@ -36,7 +36,6 @@ int main(int argc, char* argv[])
     return 1;
   }
   string out_put_folder = "/Users/zhuwei/Desktop/sct_nodes_within_hierarchy/";
-  std::cout<< argc << "  " << argv[1] << endl;
   SctFile sf(argv[1]);
   long long top_node;
   std::map<long long, int> node_map;
