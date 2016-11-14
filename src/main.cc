@@ -38,9 +38,6 @@ int main(int argc, char* argv[])
   string out_put_folder = "/Users/zhuwei/Desktop/sct_nodes_within_hierarchy/";
   std::cout<< argc << "  " << argv[1] << endl;
   SctFile sf(argv[1]);
-  // sf.GetNodes();
-  sf.GetRelations();
-  cout << "test" << endl;
   long long top_node;
   std::map<long long, int> node_map;
   std::map<int, long long> reversed_node_map;

@@ -7,11 +7,11 @@
 class SctFile
 {
     std::vector<std::string> file_chunk;
-    std::vector<std::string> relations;
-    std::vector<std::string> nodes;
+    std::vector<std::string> relations_;
+    std::vector<std::string> nodes_;
 public:
     SctFile(std::string filename);
-    std::vector<std::string> GetNodes();
-    std::vector<std::string> GetRelations();
+    std::vector<std::string> relations();
+    std::vector<std::string> nodes();
 };
 #endif // SCTTOOLS_SCTFILE_H_
