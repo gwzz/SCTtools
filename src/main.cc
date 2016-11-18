@@ -46,12 +46,6 @@ int main(int argc, char* argv[])
   std::vector<std::string> nodes = sf.nodes();
 
     // Read in node file
-  fstream fin;
-  // fin.open(nodeFile,ios::in);
-  // while (getline(fin, sline)){
-  //   nodes.push_back(sline);
-  // }
-  // fin.close();
   for (int i = 0; i < nodes.size(); ++i){
     node_map[std::stoll(nodes[i])] = i;
   }
@@ -60,11 +54,6 @@ int main(int argc, char* argv[])
     reversed_node_map[i->second] = i->first;
 
   int nodeSize = node_map.size();
-  // fin.open(relationFile,ios::in);
-  // while (getline(fin, sline)){
-  //   relation.push_back(sline);
-  // }
-  // fin.close();
   // initialize graph g
   Graph g(nodeSize);
   std::vector<long long> is_a_relationship;
