@@ -7,3 +7,9 @@ SNOMED CT RF2Release -> snapshot -> Terminology -> Relationship
 
 ## Useage
 ~$:./SCTtools SNOMED_CT_FILE_PATH
+
+
+## Status
+- [x] Get concepts
+- [x] Get relationships
+- [ ] Get attributes
