@@ -14,3 +14,4 @@ SNOMED CT RF2Release -> snapshot -> Terminology -> Relationship
 - [x] Get concepts
 - [x] Get relationships
 - [ ] Get attributes
+- [ ] Get transtive closures
