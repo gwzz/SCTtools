@@ -16,5 +16,3 @@ enable_testing()
 include_directories(src header)
 
 add_executable (SCTtools ${SOURCES})
-
-#add_subdirectory(src header)
