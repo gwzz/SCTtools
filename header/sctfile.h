@@ -9,10 +9,12 @@ class SctFile
     std::vector<std::string> file_chunk;
     std::vector<std::string> relations_;
     std::vector<std::string> nodes_;
+    std::map<std::string, std::vector<std::string> > attributes_;
 public:
     SctFile(std::string filename);
     std::vector<std::string> relations();
     std::vector<std::string> nodes();
     std::map<std::string, std::vector<std::string> > attributes();
+    void GetTrainstiveClosures();
 };
 #endif // SCTTOOLS_SCTFILE_H_

@@ -46,3 +46,11 @@ std::vector<std::string>  SctFile::relations() {
 std::vector<std::string> SctFile::nodes() {
 	return nodes_;
 }
+
+std::map<std::string, std::vector<std::string> > SctFile::attributes() {
+	return attributes_;
+}
+
+void GetTrainstiveClosures() {
+
+}
