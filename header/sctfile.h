@@ -10,11 +10,12 @@ class SctFile
     std::vector<std::string> relations_;
     std::vector<std::string> nodes_;
     std::map<std::string, std::vector<std::string> > attributes_;
+    std::map<std::string, std::vector<std::string> > trainstive_closure_;
 public:
     SctFile(std::string filename);
     std::vector<std::string> relations();
     std::vector<std::string> nodes();
     std::map<std::string, std::vector<std::string> > attributes();
-    void GetTrainstiveClosures();
+    std::map<std::string, std::vector<std::string> > TrainstiveClosures();
 };
 #endif // SCTTOOLS_SCTFILE_H_

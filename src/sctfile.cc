@@ -51,6 +51,6 @@ std::map<std::string, std::vector<std::string> > SctFile::attributes() {
 	return attributes_;
 }
 
-void GetTrainstiveClosures() {
-
+std::map<std::string, std::vector<std::string> > SctFile::TrainstiveClosures() {
+	return trainstive_closure_;
 }
