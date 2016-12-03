@@ -50,7 +50,3 @@ std::vector<std::string> SctFile::nodes() {
 std::map<std::string, std::vector<std::string> > SctFile::attributes() {
 	return attributes_;
 }
-
-std::map<std::string, std::vector<std::string> > SctFile::TrainstiveClosures() {
-	return trainstive_closure_;
-}

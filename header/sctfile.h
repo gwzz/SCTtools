@@ -16,6 +16,5 @@ public:
     std::vector<std::string> relations();
     std::vector<std::string> nodes();
     std::map<std::string, std::vector<std::string> > attributes();
-    std::map<std::string, std::vector<std::string> > TrainstiveClosures();
 };
 #endif // SCTTOOLS_SCTFILE_H_
