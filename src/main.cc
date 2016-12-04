@@ -58,7 +58,8 @@ int main(int argc, char* argv[])
   for (auto i : relation){
     is_a_relationship.clear();
     is_a_relationship = Split(i, ',');
-    g.addEdge(node_map[is_a_relationship[1]],node_map[is_a_relationship[0]]);
+    // g.addEdge(node_map[is_a_relationship[1]],node_map[is_a_relationship[0]]);
+    g.addEdge(node_map[is_a_relationship[0]],node_map[is_a_relationship[1]]);
   }
 
   // string out_put_file;
