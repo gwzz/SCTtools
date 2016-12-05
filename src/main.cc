@@ -80,10 +80,18 @@ int main(int argc, char* argv[])
   string out_put_file = out_put_folder + "test";
   fout.open(out_put_file,ios::app);
   int tc_index = 0;
-  for(std::map<long long, int>::iterator it = node_map.begin(); it != node_map.end(); ++it) {
+  // debug begin
+    // output_vector = g.DFS(node_map[300591002]);
+    // for (auto o : output_vector){
+    //   cout << reversed_node_map[o] << ',';
+    // }
+  // debug end
+  std::map<long long, int>::iterator it = node_map.begin();
+  // std::advance( it, 149999 );
+  for(it; it != node_map.end(); ++it) {
     std::cout << it->first << endl;
     output_vector = g.DFS(it->second);
-    fout << reversed_node_map[it->first] << '|';
+    fout << it->first << '|';
     for (auto o : output_vector){
       fout << reversed_node_map[o] << ',';
     }
