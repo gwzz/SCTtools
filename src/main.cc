@@ -35,7 +35,6 @@ int main(int argc, char* argv[])
   long long top_node;
   std::map<long long, int> node_map;
   std::map<int, long long> reversed_node_map;
-  std::vector<long long> output_vector;
   std::string sline;
   std::vector<std::string> relation = sf.relations();
   std::vector<std::string> nodes = sf.nodes();
@@ -76,9 +75,7 @@ int main(int argc, char* argv[])
   //   }
   //   fout.close();
   // }
-  fstream fout;
   string out_put_file = out_put_folder + "test";
-  fout.open(out_put_file,ios::app);
   int tc_index = 0;
   // debug begin
     // output_vector = g.DFS(node_map[300591002]);
@@ -89,16 +86,19 @@ int main(int argc, char* argv[])
   std::map<long long, int>::iterator it = node_map.begin();
   // std::advance( it, 149999 );
   for(it; it != node_map.end(); ++it) {
+    fstream fout;
+    fout.open(out_put_file,ios::app);
     std::cout << it->first << endl;
-    output_vector = g.DFS(it->second);
+    std::vector<long long> output_vector = g.DFS(it->second);
     fout << it->first << '|';
     for (auto o : output_vector){
       fout << reversed_node_map[o] << ',';
     }
     fout << std::endl;
     std::cout << tc_index++ << endl;
+    fout.close();
   }
-  fout.close();
+  
  
   return 0;
 }
